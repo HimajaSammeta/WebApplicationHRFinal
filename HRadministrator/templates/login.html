@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="en">
+  <head>
+      <meta charset="UTF-8">
+      <meta http-equiv="X-UA-Compatible" content="IE=edge">
+      <meta name="viewport" content="width=device-width, initial-scale=1.0">
+      <title>Login Page</title>
+      <link rel="stylesheet" href="{% static 'css/login.css' %}">
+      <script src="{% static 'js/index.js' %}"></script>
+    </head>
+    <body>
+      <form action="#" method="POST">
+        {% csrf_token %}
+      <div class="box">
+        <div class="form">
+          <h2>User Login</h2>
+          <div class="inputbox">
+            <input type="text" name="username" id="username" required>
+            <span>User ID</span>
+            <i></i>
+          </div>
+          <div class="inputbox">
+            <input type="password" name="password" id="password" required>
+            <span>Password</span>
+            <i></i>
+          </div>
+
+          <br>
+          <input type="submit" value="Login">
+          <br>
+          <div class="links">
+            <p style="color: aliceblue;">Not a user yet?<a href="/signup">Signup</a></p><br>
+          </div>
+        </div>
+      </div>
+      <div class="home">
+        <p style="color: aliceblue;">Not a candidate?<a href="/">Admin Login</a></p>
+      </div>
+    </form>
+    {% if messages %}
+    {% for message in messages %}
+        {% if message.tags == 'info' %}
+            <div class="msg-popup" id="popup">
+                <div class="msg">
+                    <img src="/media/icons/error.png" alt="Success">
+                    <h2>Wrong</h2>
+                    <p>{{message}}</p>
+                    <button type="button" onclick="closePopup()">close</button>
+                </div>
+            </div>
+        {% endif %}
+    {% endfor %}
+  {% endif %}
+<script>
+  let popup = document.getElementById("popup");
+
+  function closePopup() {
+      popup.classList.add("close")
+  }
+</script>
+  </body>
+</html>

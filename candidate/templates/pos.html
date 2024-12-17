@@ -1,0 +1,57 @@
+{% extends "home.html" %}
+{% block content %}
+
+<table id="view_page" style="--cir:#fa8c31;">
+    <tr class="table-dark">
+        <th>ID</th>
+        <th>Position Name</th>
+        <th>Department</th>
+        <th>Organization</th>
+    </tr>
+    {% for post in posts %} 
+    <tr>
+        <td>{{post.id}}</td>
+        <td>{{post.name}}</td>
+        <td>{{post.deptname}}</td>
+        <td>{{post.orgname}}</td>
+    </tr>
+    {% endfor %} 
+
+
+
+    {% if messages %}
+        {% for message in messages %}
+            {% if message.tags == 'success' %}
+                <div class="msg-popup" id="popup">
+                    <div class="msg">
+                        <img src="/media/icons/success.png" alt="Success">
+                        <h2>Success</h2>
+                        <p>{{message}}</p>
+                        <button type="button" onclick="closePopup()">close</button>
+                    </div>
+                </div>
+            {% endif %}
+            {% if message.tags == 'info' %}
+                <div class="msg-popup" id="popup">
+                    <div class="msg">
+                        <img src="/media/icons/delete.png" alt="Success">
+                        <h2>Delete</h2>
+                        <p>{{message}}</p>
+                        <button type="button" onclick="closePopup()">close</button>
+                    </div>
+                </div>
+            {% endif %}
+        {% endfor %}
+    {% endif %}
+
+<script>
+    let popup = document.getElementById("popup");
+
+    function closePopup() {
+        popup.classList.add("close")
+    }
+</script>
+
+{% endblock content %}
+
+

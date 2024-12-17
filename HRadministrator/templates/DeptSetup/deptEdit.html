@@ -1,0 +1,161 @@
+{% extends "base.html" %}
+{% block content %}
+<style>
+    .navigation ul li.dept {
+        transform: translateX(30px);
+        background: var(--bg);
+    }
+    
+    .navigation ul li.dept::before{
+        content: '';
+        position: absolute;
+        top: -28px;
+        right: -8px;
+        width: 20px;
+        height: 20px;
+        background: transparent;
+        border-bottom-right-radius: 20px;
+        box-shadow: 6px 5px 0 5px var(--bg);
+        transform: scale(1);
+        transform-origin: bottom right;
+        transition: 0.5s;
+    }
+    
+    .navigation ul li.dept::after{
+        content: '';
+        position: absolute;
+        bottom: -23px;
+        right: -8px;
+        width: 20px;
+        height: 20px;
+        background: transparent;
+        border-top-right-radius: 20px;
+        box-shadow: 6px -3px 0 3px var(--bg);
+        transform: scale(1);
+        transform-origin: bottom right;
+        transition: 0.5s;
+    }
+    
+    .navigation ul li.dept a .icon img{
+        color: #fff;
+        background: var(--cir);
+    }
+    
+    .navigation ul li.dept a .icon img::before{
+        opacity: 0.5;
+    }
+    
+    .navigation ul li.dept a .text{
+        color: #fff;
+    }
+</style>
+<a href="/HRadministrator/create-department" class="add"><img src="/media/icons/create.png" alt=""></a>
+
+<style>
+    body {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        min-height: 100vh; /* Ensure it covers the entire viewport height */
+        margin: 0;
+        background-color: #f4f4f4; /* Optional background color */
+    }
+
+    table {
+        background-color: white;
+        border-collapse: collapse;
+        border: 1px solid #ccc;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        padding: 20px;
+        border-radius: 10px; /* Smooth corners */
+    }
+
+    table td {
+        padding: 10px;
+        text-align: left;
+    }
+
+    input[type="text"] {
+        width: 100%;
+        padding: 8px;
+        box-sizing: border-box;
+    }
+
+    input[type="submit"] {
+        padding: 10px 20px;
+        background-color: #007bff;
+        color: white;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+    }
+
+    input[type="submit"]:hover {
+        background-color: #0056b3;
+    }
+</style>
+
+<div>
+    <table align="center">
+	<form action="updateDeptDB">
+        {% for dept in depts %}
+            <tr>
+                <td>Department ID</td>
+                <td><input type="text" name="deptid" value="{{ dept.id }}" readonly></td>
+            </tr>
+            <tr>
+                <td>Department Name</td>
+                <td><input type="text" name="dname" value="{{ dept.name }}"></td>
+            </tr>
+            <tr>
+                <td>Organization Name</td>
+                <td><input type="text" name="oname" value="{{ dept.orgname }}"  readonly></td>
+            </tr>
+            <tr>
+                <td colspan="2" style="text-align: center;">
+                    <input type="submit" value="Update">
+                </td>
+            </tr>
+        {% endfor %}
+	</form>
+    </table>
+</div>
+
+
+
+
+    {% if messages %}
+        {% for message in messages %}
+            {% if message.tags == 'success' %}
+                <div class="msg-popup" id="popup">
+                    <div class="msg">
+                        <img src="/media/icons/success.png" alt="Success">
+                        <h2>Success</h2>
+                        <p>{{message}}</p>
+                        <button type="button" onclick="closePopup()">close</button>
+                    </div>
+                </div>
+            {% endif %}
+            {% if message.tags == 'info' %}
+                <div class="msg-popup" id="popup">
+                    <div class="msg">
+                        <img src="/media/icons/delete.png" alt="Success">
+                        <h2>Delete</h2>
+                        <p>{{message}}</p>
+                        <button type="button" onclick="closePopup()">close</button>
+                    </div>
+                </div>
+            {% endif %}
+        {% endfor %}
+    {% endif %}
+
+<script>
+    let popup = document.getElementById("popup");
+
+    function closePopup() {
+        popup.classList.add("close")
+    }
+</script>
+
+
+{% endblock content %}

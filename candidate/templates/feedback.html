@@ -1,0 +1,23 @@
+{% extends "home.html" %}
+{% block content %}
+
+<table id="view_page" style="--cir:#fa8c31;">
+<form action="/candidate/feedbackDB">
+    <tr><th>FeedBack</th></tr>
+	<tr><th><textarea rows=5 cols=50 name="feedback"></textarea></th></tr>
+	<tr><th><input type="submit" value="Submit FeedBack"></th></tr>
+</form>
+</table>
+
+<script>
+    let popup = document.getElementById("popup");
+
+    function closePopup() {
+        popup.classList.add("close")
+    }
+</script>
+
+
+{% endblock content %}
+
+
